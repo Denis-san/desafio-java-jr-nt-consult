@@ -63,7 +63,7 @@ public class HandlerAppExceptions {
 		ErrorReponse errorResponse = new ErrorReponse(
 				new Date(),
 				INTERNAL_SERVER_ERROR.value(),
-				ex.getMessage(),
+				"Houve um erro interno ao realizar a operação",
 				request.getServletPath()
 			);
 
