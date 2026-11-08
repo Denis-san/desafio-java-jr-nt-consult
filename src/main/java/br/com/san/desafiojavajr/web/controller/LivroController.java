@@ -18,6 +18,7 @@ import br.com.san.desafiojavajr.service.LivroService;
 import br.com.san.desafiojavajr.web.dto.request.CreateLivroDTO;
 import br.com.san.desafiojavajr.web.dto.request.UpdateLivroDTO;
 import br.com.san.desafiojavajr.web.dto.response.LivroDTO;
+import jakarta.validation.Valid;
 
 
 @RestController
@@ -31,7 +32,7 @@ public class LivroController {
 	}
 
 	@PostMapping
-	public ResponseEntity<LivroDTO> createLivro(@RequestBody CreateLivroDTO createDTO) {
+	public ResponseEntity<LivroDTO> createLivro(@RequestBody @Valid CreateLivroDTO createDTO) {
 		
 		LivroDTO livro = service.registerLivro(createDTO);
 		
@@ -71,7 +72,8 @@ public class LivroController {
 	
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<LivroDTO> updateLivroById(@PathVariable Long id, @RequestBody UpdateLivroDTO updateDTO) {
+	public ResponseEntity<LivroDTO> updateLivroById(@PathVariable Long id, 
+			@RequestBody @Valid UpdateLivroDTO updateDTO) {
 		
 		LivroDTO updatedLivro = service.updateLivro(id, updateDTO);
 		

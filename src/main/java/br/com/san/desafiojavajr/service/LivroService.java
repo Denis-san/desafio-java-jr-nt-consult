@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.san.desafiojavajr.domain.model.Livro;
+import br.com.san.desafiojavajr.exceptions.ResourceNotFoundException;
 import br.com.san.desafiojavajr.repository.LivroRepository;
 import br.com.san.desafiojavajr.web.dto.request.CreateLivroDTO;
 import br.com.san.desafiojavajr.web.dto.request.UpdateLivroDTO;
@@ -46,7 +47,7 @@ public class LivroService {
 	public LivroDTO getLivroById(Long id) {
 		return repository.findById(id)
 				.map(LivroDTO::new)
-				.orElseThrow(() -> new RuntimeException()); // TODO trocar para ResourceNotFoundException 
+				.orElseThrow(() -> new ResourceNotFoundException("Livro não encontrado!")); 
 	}
 	
 	
@@ -64,7 +65,7 @@ public class LivroService {
 	public LivroDTO updateLivro(Long livroToUpdateId, UpdateLivroDTO updateDTO) {
 		
 		Livro livroToUpdate = repository.findById(livroToUpdateId)
-					.orElseThrow(() -> new RuntimeException());
+					.orElseThrow(() -> new ResourceNotFoundException("Livro não encontrado!"));
 		
 		updateDTO.applyTo(livroToUpdate);
 		
