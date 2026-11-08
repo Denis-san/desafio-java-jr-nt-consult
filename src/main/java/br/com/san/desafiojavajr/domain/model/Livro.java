@@ -18,18 +18,25 @@ public class Livro implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
+
 	@Column(nullable = false, length = 300)
 	private String titulo;
-	
+
 	@Column(nullable = false, length = 200)
 	private String autor;
-	
+
 	@Column(nullable = false)
 	private Integer anoPublicacao;
 
 	public Livro() {
 
+	}
+
+	public Livro(String titulo, String autor, Integer anoPublicacao) {
+		super();
+		this.titulo = titulo;
+		this.autor = autor;
+		this.anoPublicacao = anoPublicacao;
 	}
 
 	public Long getId() {
