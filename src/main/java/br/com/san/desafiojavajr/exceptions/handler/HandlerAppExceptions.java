@@ -6,6 +6,8 @@ import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 import java.util.Date;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -16,6 +18,8 @@ import jakarta.servlet.http.HttpServletRequest;
 
 @RestControllerAdvice
 public class HandlerAppExceptions {
+	 private static final Logger log = LoggerFactory.getLogger(HandlerAppExceptions.class);
+
 
 	@ExceptionHandler(HttpApplicationException.class)
 	public ResponseEntity<ErrorReponse> handleHttpApplicationException(HttpApplicationException ex,
@@ -27,6 +31,8 @@ public class HandlerAppExceptions {
 				ex.getMessage(),
 				request.getServletPath()
 			);
+		
+		log.warn(ex.getMessage());
 
 		return new ResponseEntity<ErrorReponse>(errorResponse, ex.getStatus());
 	}
@@ -66,6 +72,8 @@ public class HandlerAppExceptions {
 				"Houve um erro interno ao realizar a operação",
 				request.getServletPath()
 			);
+		
+		log.error("Exceção não tratada: ", ex);
 
 		return new ResponseEntity<ErrorReponse>(errorResponse, INTERNAL_SERVER_ERROR);
 	}
