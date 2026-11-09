@@ -18,10 +18,6 @@ public record CreateLivroDTO(
 		Integer anoPublicacao
 	) {
 
-		public CreateLivroDTO(Livro livro) {
-			this(livro.getTitulo(), livro.getAutor(), livro.getAnoPublicacao());
-		}
-	
 		public Livro toEntity() {
 			return new Livro(this.titulo, this.autor, this.anoPublicacao);
 		}

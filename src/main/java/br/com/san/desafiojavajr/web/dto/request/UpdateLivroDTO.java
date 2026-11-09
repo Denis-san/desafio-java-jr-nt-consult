@@ -19,6 +19,9 @@ public record UpdateLivroDTO(
 	) {
 
 	public void applyTo(Livro livro) {
+		
+		if(livro == null) throw new IllegalArgumentException("O livro não deve estar null");
+		
 		livro.setTitulo(titulo);
 		livro.setAutor(autor);
 		livro.setAnoPublicacao(anoPublicacao);

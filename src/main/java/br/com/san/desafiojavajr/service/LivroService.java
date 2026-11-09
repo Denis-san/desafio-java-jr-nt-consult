@@ -27,7 +27,7 @@ public class LivroService {
 	public LivroDTO registerLivro(CreateLivroDTO createDTO) {
 		Livro livro = repository.save(createDTO.toEntity());
 		
-		return new LivroDTO(livro);
+		return LivroDTO.from(livro);
 	}
 	
 	
@@ -38,7 +38,7 @@ public class LivroService {
 		
 		List<Livro> allLivros = repository.findAll(); 
 		
-		return allLivros.stream().map(LivroDTO::new).toList();
+		return allLivros.stream().map(LivroDTO::from).toList();
 	}
 	
 	
@@ -46,7 +46,7 @@ public class LivroService {
 	@Transactional(readOnly = true)
 	public LivroDTO getLivroById(Long id) {
 		return repository.findById(id)
-				.map(LivroDTO::new)
+				.map(LivroDTO::from)
 				.orElseThrow(() -> new ResourceNotFoundException("Livro não encontrado!")); 
 	}
 	
@@ -71,7 +71,7 @@ public class LivroService {
 		
 		Livro livro = repository.save(livroToUpdate);
 		
-		return new LivroDTO(livro);
+		return LivroDTO.from(livro);
 	}
 
 }
